@@ -1,0 +1,9 @@
+const String apiUrl = 'https://lavie.orangedigitalcenteregypt.com/api/v1/';
+const String baseUrl = 'https://lavie.orangedigitalcenteregypt.com';
+const registerationScreen = '/';
+const homeScreenRoute = 'home';
+const loginApi = 'auth/signin';
+const signupApi = "auth/signup";
+const seedsApi = "seeds";
+const plantsApi = "plants";
+const toolsApi = "tools";
