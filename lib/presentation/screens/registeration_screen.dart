@@ -6,8 +6,6 @@ import 'package:la_vie/business_logic/bloc/auth_bloc/auth_bloc.dart';
 import 'package:la_vie/business_logic/bloc/auth_bloc/auth_event.dart';
 import 'package:la_vie/business_logic/bloc/auth_bloc/auth_state.dart';
 import 'package:la_vie/constants/strings.dart';
-import 'package:la_vie/data/repository/auth_repository.dart';
-import 'package:la_vie/presentation/screens/home_screen.dart';
 
 class RegisterationScreen extends StatefulWidget {
   const RegisterationScreen({Key? key}) : super(key: key);
@@ -106,13 +104,13 @@ class _RegisterationScreenState extends State<RegisterationScreen>
             ),
             SizedBox(
               width: double.maxFinite,
-              height: 300,
+              height: 250,
               child: TabBarView(
                 controller: _tabController,
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 25, right: 25, top: 40),
+                        const EdgeInsets.only(left: 25, right: 25, top: 30),
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
@@ -293,7 +291,7 @@ class _RegisterationScreenState extends State<RegisterationScreen>
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 25, right: 25, top: 0),
+                    padding: const EdgeInsets.only(left: 25, right: 25, top: 5),
                     child: Column(
                       children: [
                         Column(

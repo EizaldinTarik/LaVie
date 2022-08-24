@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 import 'package:la_vie/data/models/products.dart';
 import 'package:la_vie/presentation/widgets/products_item.dart';
@@ -33,6 +34,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late List<Tool> allTools = [];
   late List<Tool> searchedForTools;
   late bool _isSearching = false;
+  int _page = 0;
+  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
   final _searchTextController = TextEditingController();
   @override
   void initState() {
@@ -47,7 +50,49 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     TabController? _tabController = TabController(length: 4, vsync: this);
     return Scaffold(
-      //bottomNavigationBar: ,
+      bottomNavigationBar: CurvedNavigationBar(
+        key: _bottomNavigationKey,
+        index: 0,
+        height: 60.0,
+        items: const [
+          ImageIcon(
+            AssetImage(
+              'assets/icons/leaff.png',
+            ),
+          ),
+          ImageIcon(
+            AssetImage(
+              'assets/icons/Scan.png',
+            ),
+          ),
+          ImageIcon(
+            AssetImage(
+              'assets/icons/home.png',
+            ),
+          ),
+          ImageIcon(
+            AssetImage(
+              'assets/icons/bell.png',
+            ),
+          ),
+          ImageIcon(
+            AssetImage(
+              'assets/icons/Person.png',
+            ),
+          ),
+        ],
+        color: Colors.white,
+        buttonBackgroundColor: Colors.green,
+        backgroundColor: Color.fromARGB(255, 243, 242, 242),
+        animationCurve: Curves.easeInOut,
+        animationDuration: Duration(milliseconds: 600),
+        onTap: (index) {
+          setState(() {
+            _page = index;
+          });
+        },
+        letIndexChange: (index) => true,
+      ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -67,27 +112,30 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 child: Row(
                   children: [
                     Flexible(
-                      child: TextField(
-                        controller: _searchTextController,
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(
-                            Icons.search,
-                          ),
-                          filled: true,
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                          fillColor: const Color.fromARGB(255, 248, 248, 248),
-                          labelText: "Search",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                              width: 0,
-                              style: BorderStyle.none,
+                      child: MaterialButton(
+                        onPressed: () {},
+                        child: TextField(
+                          controller: _searchTextController,
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(
+                              Icons.search,
+                            ),
+                            filled: true,
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            fillColor: const Color.fromARGB(255, 248, 248, 248),
+                            labelText: "Search",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(
+                                width: 0,
+                                style: BorderStyle.none,
+                              ),
                             ),
                           ),
+                          onChanged: (searchedProduct) {
+                            addSearchedForItemsToSearchedList(searchedProduct);
+                          },
                         ),
-                        onChanged: (searchedProduct) {
-                          addSearchedForItemsToSearchedList(searchedProduct);
-                        },
                       ),
                     ),
                     const SizedBox(
