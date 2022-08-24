@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:la_vie/data/models/products.dart';
 import 'package:la_vie/presentation/widgets/products_item.dart';
 import 'package:la_vie/business_logic/cubit/products_cubit/products_cubit.dart';
+
 import 'package:la_vie/data/models/seeds.dart';
 import 'package:la_vie/presentation/widgets/seeds_item.dart';
 import 'package:la_vie/business_logic/cubit/seeds_cubit/seeds_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:la_vie/data/models/plants.dart';
+import 'package:la_vie/presentation/widgets/plants_item.dart';
+import 'package:la_vie/business_logic/cubit/plants_cubit/plants_cubit.dart';
+
+import 'package:la_vie/data/models/tools.dart';
+import 'package:la_vie/presentation/widgets/tools_item.dart';
+import 'package:la_vie/business_logic/cubit/tools_cubit/tools_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,6 +28,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late List<Seed> searchedForSeeds;
   late List<Product> allProducts = [];
   late List<Product> searchedForProducts;
+  late List<Plant> allPlants = [];
+  late List<Plant> searchedForPlants;
+  late List<Tool> allTools = [];
+  late List<Tool> searchedForTools;
   late bool _isSearching = false;
   final _searchTextController = TextEditingController();
   @override
@@ -25,12 +39,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     super.initState();
     BlocProvider.of<SeedsCubit>(context).getAllSeeds();
     BlocProvider.of<ProductsCubit>(context).getAllProducts();
+    BlocProvider.of<PlantsCubit>(context).getAllPlants();
+    BlocProvider.of<ToolsCubit>(context).getAllTools();
   }
 
   @override
   Widget build(BuildContext context) {
     TabController? _tabController = TabController(length: 4, vsync: this);
     return Scaffold(
+      //bottomNavigationBar: ,
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -142,13 +159,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       child: buildBlocProductsWidget(),
                     ),
                     Container(
-                      child: Text('Plants'),
+                      child: buildBlocPlantsWidget(),
                     ),
                     Container(
                       child: buildBlocSeedsWidget(),
                     ),
                     Container(
-                      child: Text('Tools'),
+                      child: buildBlocToolsWidget(),
                     ),
                   ],
                 ),
@@ -263,6 +280,114 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           product: _searchTextController.text.isEmpty
               ? allProducts[index]
               : searchedForProducts[index],
+        );
+      },
+    );
+  }
+
+  Widget buildBlocPlantsWidget() {
+    return BlocBuilder<PlantsCubit, PlantsState>(
+      builder: (context, state) {
+        if (state is PlantsLoaded) {
+          allPlants = (state).plants;
+          return buildLoadedPlantsListWidgets();
+        } else {
+          return Container(
+            color: Colors.white,
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Widget buildLoadedPlantsListWidgets() {
+    return SingleChildScrollView(
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            buildPlantsList(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildPlantsList() {
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 2 / 3,
+          crossAxisSpacing: 1,
+          mainAxisSpacing: 1),
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
+      padding: EdgeInsets.zero,
+      itemCount: _searchTextController.text.isEmpty
+          ? allPlants.length
+          : searchedForPlants.length,
+      itemBuilder: (ctx, index) {
+        return PlantItem(
+          plant: _searchTextController.text.isEmpty
+              ? allPlants[index]
+              : searchedForPlants[index],
+        );
+      },
+    );
+  }
+
+  Widget buildBlocToolsWidget() {
+    return BlocBuilder<ToolsCubit, ToolsState>(
+      builder: (context, state) {
+        if (state is ToolsLoaded) {
+          allTools = (state).tools;
+          return buildLoadedToolsListWidgets();
+        } else {
+          return Container(
+            color: Colors.white,
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Widget buildLoadedToolsListWidgets() {
+    return SingleChildScrollView(
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            buildToolsList(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildToolsList() {
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 2 / 3,
+          crossAxisSpacing: 1,
+          mainAxisSpacing: 1),
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
+      padding: EdgeInsets.zero,
+      itemCount: _searchTextController.text.isEmpty
+          ? allTools.length
+          : searchedForTools.length,
+      itemBuilder: (ctx, index) {
+        return ToolItem(
+          tool: _searchTextController.text.isEmpty
+              ? allTools[index]
+              : searchedForTools[index],
         );
       },
     );

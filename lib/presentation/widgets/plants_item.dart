@@ -2,16 +2,16 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:la_vie/constants/strings.dart';
-import 'package:la_vie/data/models/seeds.dart';
-import 'package:la_vie/data/models/products.dart';
+import 'package:la_vie/data/models/plants.dart';
+import 'package:la_vie/data/models/plants.dart';
 
-class SeedItem extends StatelessWidget {
-  const SeedItem({Key? key, required this.seed}) : super(key: key);
-  final Seed seed;
+class PlantItem extends StatelessWidget {
+  const PlantItem({Key? key, required this.plant}) : super(key: key);
+  final Plant plant;
 
   @override
   Widget build(BuildContext context) {
-    var imagesUrl = baseUrl + seed.imageUrl.toString();
+    var imagesUrl = baseUrl + plant.imageUrl.toString();
     return Container(
       width: double.infinity,
       margin: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
@@ -43,7 +43,7 @@ class SeedItem extends StatelessWidget {
             height: 10,
           ),
           Text(
-            seed.name.toString(),
+            plant.name.toString(),
             style: const TextStyle(
               fontSize: 16,
               color: Colors.black,
@@ -55,7 +55,43 @@ class SeedItem extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
           Text(
-            '${seed.description}',
+            '${plant.description}',
+            style: const TextStyle(
+                fontSize: 12,
+                color: Colors.black,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Roboto'),
+            overflow: TextOverflow.fade,
+            maxLines: 3,
+            textAlign: TextAlign.left,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Text(
+            'water Capacity: ${plant.waterCapacity}',
+            style: const TextStyle(
+                fontSize: 12,
+                color: Colors.black,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Roboto'),
+            overflow: TextOverflow.fade,
+            maxLines: 3,
+            textAlign: TextAlign.left,
+          ),
+          Text(
+            'Sunlight: ${plant.sunLight}',
+            style: const TextStyle(
+                fontSize: 12,
+                color: Colors.black,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Roboto'),
+            overflow: TextOverflow.fade,
+            maxLines: 3,
+            textAlign: TextAlign.left,
+          ),
+          Text(
+            'Temp: ${plant.temperature}',
             style: const TextStyle(
                 fontSize: 12,
                 color: Colors.black,

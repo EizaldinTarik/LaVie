@@ -2,16 +2,16 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:la_vie/constants/strings.dart';
-import 'package:la_vie/data/models/seeds.dart';
-import 'package:la_vie/data/models/products.dart';
+import 'package:la_vie/data/models/tools.dart';
+import 'package:la_vie/data/models/tools.dart';
 
-class SeedItem extends StatelessWidget {
-  const SeedItem({Key? key, required this.seed}) : super(key: key);
-  final Seed seed;
+class ToolItem extends StatelessWidget {
+  const ToolItem({Key? key, required this.tool}) : super(key: key);
+  final Tool tool;
 
   @override
   Widget build(BuildContext context) {
-    var imagesUrl = baseUrl + seed.imageUrl.toString();
+    var imagesUrl = baseUrl + tool.imageUrl.toString();
     return Container(
       width: double.infinity,
       margin: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
@@ -43,7 +43,7 @@ class SeedItem extends StatelessWidget {
             height: 10,
           ),
           Text(
-            seed.name.toString(),
+            tool.name.toString(),
             style: const TextStyle(
               fontSize: 16,
               color: Colors.black,
@@ -55,7 +55,7 @@ class SeedItem extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
           Text(
-            '${seed.description}',
+            '${tool.description}',
             style: const TextStyle(
                 fontSize: 12,
                 color: Colors.black,

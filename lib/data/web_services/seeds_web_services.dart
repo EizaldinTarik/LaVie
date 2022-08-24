@@ -18,7 +18,6 @@ class SeedsWebServices {
     final data = json.decode(response.body);
 
     if (data['message'] == 'Seed Fetched Successfully') {
-      print('yes');
       print(data['data']);
       return (data['data']);
     } else {

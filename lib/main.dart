@@ -1,16 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:la_vie/presentation/screens/home_screen.dart';
+import 'package:la_vie/presentation/screens/registeration_screen.dart';
+
 import 'package:la_vie/business_logic/bloc/auth_bloc/auth_bloc.dart';
 import 'package:la_vie/business_logic/bloc/auth_bloc/auth_state.dart';
-import 'package:la_vie/business_logic/cubit/seeds_cubit/seeds_cubit.dart';
+import 'package:la_vie/data/repository/auth_repository.dart';
+
 import 'package:la_vie/business_logic/cubit/products_cubit/products_cubit.dart';
 import 'package:la_vie/data/repository/products_repository.dart';
 import 'package:la_vie/data/web_services/products_web_services.dart';
-import 'package:la_vie/data/repository/auth_repository.dart';
+
+import 'package:la_vie/business_logic/cubit/seeds_cubit/seeds_cubit.dart';
 import 'package:la_vie/data/repository/seeds_repository.dart';
-import 'package:la_vie/presentation/screens/home_screen.dart';
-import 'package:la_vie/presentation/screens/registeration_screen.dart';
 import 'package:la_vie/data/web_services/seeds_web_services.dart';
+
+import 'package:la_vie/business_logic/cubit/plants_cubit/plants_cubit.dart';
+import 'package:la_vie/data/repository/plants_repository.dart';
+import 'package:la_vie/data/web_services/plants_web_services.dart';
+
+import 'package:la_vie/business_logic/cubit/tools_cubit/tools_cubit.dart';
+import 'package:la_vie/data/repository/tools_repository.dart';
+import 'package:la_vie/data/web_services/tools_web_services.dart';
 
 void main() {
   runApp(
@@ -53,13 +65,27 @@ class LaVieApp extends StatelessWidget {
             ),
           ),
         ),
+        BlocProvider(
+          create: (context) => PlantsCubit(
+            PlantsRepository(
+              PlantsWebServices(),
+            ),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => ToolsCubit(
+            ToolsRepository(
+              ToolsWebServices(),
+            ),
+          ),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: {
           '/': (context) => const RegisterationScreen(),
-          'home': (context) => HomeScreen()
+          'home': (context) => const HomeScreen()
         },
       ),
     );

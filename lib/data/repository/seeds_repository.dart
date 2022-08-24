@@ -1,6 +1,4 @@
-import 'package:la_vie/constants/strings.dart';
 import 'package:la_vie/data/models/seeds.dart';
-import 'package:la_vie/data/models/products.dart';
 import 'package:la_vie/data/web_services/seeds_web_services.dart';
 
 class SeedsRepository {

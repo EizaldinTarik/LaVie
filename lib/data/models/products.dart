@@ -115,7 +115,7 @@ class Data {
   bool? available;
   Seedd? seed;
   Product? plant;
-  Tool? tool;
+  Tooll? tool;
 
   Data(
       {this.productId,
@@ -139,7 +139,7 @@ class Data {
     available = json['available'];
     seed = json['seed'] != null ? new Seedd.fromJson(json['seed']) : null;
     plant = json['plant'] != null ? new Product.fromJson(json['plant']) : null;
-    tool = json['tool'] != null ? new Tool.fromJson(json['tool']) : null;
+    tool = json['tool'] != null ? new Tooll.fromJson(json['tool']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -234,15 +234,15 @@ class Product {
   }
 }
 
-class Tool {
+class Tooll {
   String? toolId;
   String? name;
   String? description;
   String? imageUrl;
 
-  Tool({this.toolId, this.name, this.description, this.imageUrl});
+  Tooll({this.toolId, this.name, this.description, this.imageUrl});
 
-  Tool.fromJson(Map<String, dynamic> json) {
+  Tooll.fromJson(Map<String, dynamic> json) {
     toolId = json['toolId'];
     name = json['name'];
     description = json['description'];
