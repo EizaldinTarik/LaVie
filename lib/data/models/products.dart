@@ -16,6 +16,25 @@
 //   int? temperature;
 //   bool? tool;
 
+//   Product({
+//     this.message,
+//     this.data,
+//     this.productId,
+//     this.name,
+//     this.description,
+//     this.imageUrl,
+//     this.type,
+//     this.price,
+//     this.available,
+//     this.seed,
+//     this.plant,
+//     this.tool,
+//     this.plantId,
+//     this.sunLight,
+//     this.temperature,
+//     this.waterCapacity,
+//   });
+
 //   Product.fromJson(Map<String, dynamic> json) {
 //     type = json['type'];
 //     name = json['name'];
@@ -33,6 +52,27 @@
 //     sunLight = json['sunLight'];
 //     temperature = json['temperature'];
 //     tool = json['tool'];
+//   }
+
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> product = new Map<String, dynamic>();
+//     product['productId'] = this.productId;
+//     product['name'] = this.name;
+//     product['description'] = this.description;
+//     product['imageUrl'] = this.imageUrl;
+//     product['type'] = this.type;
+//     product['price'] = this.price;
+//     product['available'] = this.available;
+//     // if (this.seed != null) {
+//     //   data['seed'] = this.seed!.toJson();
+//     // }
+//     // if (this.plant != null) {
+//     //   data['plant'] = this.plant!.toJson();
+//     // }
+//     // if (this.tool != null) {
+//     //   data['tool'] = this.tool!.toJson();
+//     // }
+//     return product;
 //   }
 // }
 
@@ -73,7 +113,7 @@ class Data {
   String? type;
   int? price;
   bool? available;
-  Seed? seed;
+  Seedd? seed;
   Product? plant;
   Tool? tool;
 
@@ -97,7 +137,7 @@ class Data {
     type = json['type'];
     price = json['price'];
     available = json['available'];
-    seed = json['seed'] != null ? new Seed.fromJson(json['seed']) : null;
+    seed = json['seed'] != null ? new Seedd.fromJson(json['seed']) : null;
     plant = json['plant'] != null ? new Product.fromJson(json['plant']) : null;
     tool = json['tool'] != null ? new Tool.fromJson(json['tool']) : null;
   }
@@ -124,15 +164,15 @@ class Data {
   }
 }
 
-class Seed {
+class Seedd {
   String? seedId;
   String? name;
   String? description;
   String? imageUrl;
 
-  Seed({this.seedId, this.name, this.description, this.imageUrl});
+  Seedd({this.seedId, this.name, this.description, this.imageUrl});
 
-  Seed.fromJson(Map<String, dynamic> json) {
+  Seedd.fromJson(Map<String, dynamic> json) {
     seedId = json['seedId'];
     name = json['name'];
     description = json['description'];
@@ -157,15 +197,18 @@ class Product {
   int? waterCapacity;
   int? sunLight;
   int? temperature;
+  int? price;
 
-  Product(
-      {this.plantId,
-      this.name,
-      this.description,
-      this.imageUrl,
-      this.waterCapacity,
-      this.sunLight,
-      this.temperature});
+  Product({
+    this.plantId,
+    this.name,
+    this.description,
+    this.imageUrl,
+    this.waterCapacity,
+    this.sunLight,
+    this.temperature,
+    this.price,
+  });
 
   Product.fromJson(Map<String, dynamic> json) {
     plantId = json['plantId'];
@@ -175,6 +218,7 @@ class Product {
     waterCapacity = json['waterCapacity'];
     sunLight = json['sunLight'];
     temperature = json['temperature'];
+    price = json['price'];
   }
 
   Map<String, dynamic> toJson() {

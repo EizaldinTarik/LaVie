@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:la_vie/data/models/products.dart';
 import 'package:la_vie/presentation/widgets/products_item.dart';
 import 'package:la_vie/business_logic/cubit/products_cubit/products_cubit.dart';
-//import 'package:la_vie/data/models/seeds.dart';
+import 'package:la_vie/data/models/seeds.dart';
 import 'package:la_vie/presentation/widgets/seeds_item.dart';
 import 'package:la_vie/business_logic/cubit/seeds_cubit/seeds_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
