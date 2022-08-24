@@ -2,16 +2,15 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:la_vie/constants/strings.dart';
-//import 'package:la_vie/data/models/seeds.dart';
 import 'package:la_vie/data/models/products.dart';
 
-class SeedItem extends StatelessWidget {
-  const SeedItem({Key? key, required this.seed}) : super(key: key);
-  final Seed seed;
+class ProductItem extends StatelessWidget {
+  const ProductItem({Key? key, required this.product}) : super(key: key);
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
-    var imagesUrl = baseUrl + seed.imageUrl.toString();
+    var imagesUrl = baseUrl + product.imageUrl.toString();
     return Container(
       width: double.infinity,
       margin: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
@@ -27,7 +26,7 @@ class SeedItem extends StatelessWidget {
           color: Colors.white,
           alignment: Alignment.bottomCenter,
           child: Text(
-            seed.name.toString(),
+            product.name.toString(),
             style: const TextStyle(
               height: 1.3,
               fontSize: 16,

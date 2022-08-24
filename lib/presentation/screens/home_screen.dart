@@ -1,188 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:la_vie/data/models/seeds.dart';
+import 'package:la_vie/data/models/products.dart';
+import 'package:la_vie/presentation/widgets/products_item.dart';
+import 'package:la_vie/business_logic/cubit/products_cubit/products_cubit.dart';
+//import 'package:la_vie/data/models/seeds.dart';
 import 'package:la_vie/presentation/widgets/seeds_item.dart';
-import 'package:la_vie/business_logic/cubit/seeds_cubit.dart';
+import 'package:la_vie/business_logic/cubit/seeds_cubit/seeds_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-// class HomeScreen extends StatefulWidget {
-//   const HomeScreen({Key? key}) : super(key: key);
-
-//   @override
-//   State<HomeScreen> createState() => _HomeScreenState();
-// }
-
-// class _HomeScreenState extends State<HomeScreen> {
-//   late List<Seed> allSeeds;
-//   late List<Seed> searchedForSeeds;
-//   late bool _isSearching = false;
-//   final _searchTextController = TextEditingController();
-//   @override
-//   void initState() {
-//     super.initState();
-//     BlocProvider.of<SeedsCubit>(context).getAllSeeds();
-//   }
-
-//   Widget _buildSearchField() {
-//     return TextField(
-//       controller: _searchTextController,
-//       cursorColor: Colors.grey,
-//       decoration: const InputDecoration(
-//         hintText: 'Find a character',
-//         border: InputBorder.none,
-//         hintStyle: TextStyle(
-//           color: Colors.grey,
-//           fontSize: 18,
-//         ),
-//       ),
-//       style: const TextStyle(
-//         color: Colors.grey,
-//         fontSize: 18,
-//       ),
-//       onChanged: (searchedSeed) {
-//         addSearchedForItemsToSearchedList(searchedSeed);
-//       },
-//     );
-//   }
-
-// void addSearchedForItemsToSearchedList(String searchedSeed) {
-//   searchedForSeeds = allSeeds
-//       .where((seed) => seed.name.toLowerCase().startsWith(searchedSeed))
-//       .toList();
-//   setState(() {});
-// }
-
-//   List<Widget> _buildAppBarAction() {
-//     if (_isSearching) {
-//       return [
-//         IconButton(
-//           onPressed: () {
-//             _clearSearch();
-//             Navigator.pop(context);
-//           },
-//           icon: const Icon(
-//             Icons.clear,
-//             color: Colors.grey,
-//           ),
-//         ),
-//       ];
-//     } else {
-//       return [
-//         IconButton(
-//           onPressed: _startSearch,
-//           icon: const Icon(
-//             Icons.search,
-//             color: Colors.grey,
-//           ),
-//         ),
-//       ];
-//     }
-//   }
-
-//   void _startSearch() {
-//     ModalRoute.of(context)!.addLocalHistoryEntry(
-//       LocalHistoryEntry(
-//         onRemove: _stopSearching,
-//       ),
-//     );
-//     setState(() {
-//       _isSearching = true;
-//     });
-//   }
-
-//   void _stopSearching() {
-//     _clearSearch();
-//     setState(() {
-//       _isSearching = false;
-//     });
-//   }
-
-//   void _clearSearch() {
-//     setState(() {
-//       _searchTextController.clear();
-//     });
-//   }
-
-//   Widget buildBlocWidget() {
-//     return BlocBuilder<SeedsCubit, SeedsState>(
-//       builder: (context, state) {
-//         if (state is SeedsLoaded) {
-//           allSeeds = (state).seeds;
-//           return buildLoadedListWidgets();
-//         } else {
-//           return Container(
-//             color: Colors.yellow,
-//             child: const Center(
-//               child: CircularProgressIndicator(),
-//             ),
-//           );
-//         }
-//       },
-//     );
-//   }
-
-//   Widget buildLoadedListWidgets() {
-//     return SingleChildScrollView(
-//       child: Container(
-//         color: Colors.grey,
-//         child: Column(
-//           children: [
-//             buildSeedsList(),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget buildSeedsList() {
-//     return GridView.builder(
-//       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-//           crossAxisCount: 2,
-//           childAspectRatio: 2 / 3,
-//           crossAxisSpacing: 1,
-//           mainAxisSpacing: 1),
-//       shrinkWrap: true,
-//       physics: const ClampingScrollPhysics(),
-//       padding: EdgeInsets.zero,
-//       itemCount: _searchTextController.text.isEmpty
-//           ? allSeeds.length
-//           : searchedForSeeds.length,
-//       itemBuilder: (ctx, index) {
-//         return SeedItem(
-//           seed: _searchTextController.text.isEmpty
-//               ? allSeeds[index]
-//               : searchedForSeeds[index],
-//         );
-//       },
-//     );
-//   }
-
-//   Widget _buildAppBarTitle() {
-//     return const Text(
-//       'Seeds',
-//       style: TextStyle(
-//         color: Colors.grey,
-//       ),
-//     );
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: Colors.yellow,
-//         leading: _isSearching
-//             ? const BackButton(
-//                 color: Colors.grey,
-//               )
-//             : Container(),
-//         title: _isSearching ? _buildSearchField() : _buildAppBarTitle(),
-//         actions: _buildAppBarAction(),
-//       ),
-//       backgroundColor: Colors.white,
-//       body: buildBlocWidget(),
-//     );
-//   }
-// }
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -193,12 +16,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late List<Seed> allSeeds = [];
   late List<Seed> searchedForSeeds;
+  late List<Product> allProducts = [];
+  late List<Product> searchedForProducts;
   late bool _isSearching = false;
   final _searchTextController = TextEditingController();
   @override
   void initState() {
     super.initState();
     BlocProvider.of<SeedsCubit>(context).getAllSeeds();
+    BlocProvider.of<ProductsCubit>(context).getAllProducts();
   }
 
   @override
@@ -242,8 +68,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             ),
                           ),
                         ),
-                        onChanged: (searchedSeed) {
-                          addSearchedForItemsToSearchedList(searchedSeed);
+                        onChanged: (searchedProduct) {
+                          addSearchedForItemsToSearchedList(searchedProduct);
                         },
                       ),
                     ),
@@ -313,13 +139,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   controller: _tabController,
                   children: [
                     Container(
-                      child: Text('All'),
+                      child: buildBlocProductsWidget(),
                     ),
                     Container(
                       child: Text('Plants'),
                     ),
                     Container(
-                      child: buildBlocWidget(),
+                      child: buildBlocSeedsWidget(),
                     ),
                     Container(
                       child: Text('Tools'),
@@ -334,12 +160,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget buildBlocWidget() {
+  Widget buildBlocSeedsWidget() {
     return BlocBuilder<SeedsCubit, SeedsState>(
       builder: (context, state) {
         if (state is SeedsLoaded) {
           allSeeds = (state).seeds;
-          return buildLoadedListWidgets();
+          return buildLoadedSeedsListWidgets();
         } else {
           return Container(
             color: Colors.white,
@@ -352,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget buildLoadedListWidgets() {
+  Widget buildLoadedSeedsListWidgets() {
     return SingleChildScrollView(
       child: Container(
         color: Colors.white,
@@ -388,10 +214,65 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  void addSearchedForItemsToSearchedList(String searchedSeed) {
-    searchedForSeeds = allSeeds
-        .where((seed) => seed.name!.toLowerCase().startsWith(searchedSeed))
+  Widget buildBlocProductsWidget() {
+    return BlocBuilder<ProductsCubit, ProductsState>(
+      builder: (context, state) {
+        if (state is ProductsLoaded) {
+          allProducts = (state).products;
+          return buildLoadedProductsListWidgets();
+        } else {
+          return Container(
+            color: Colors.white,
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Widget buildLoadedProductsListWidgets() {
+    return SingleChildScrollView(
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            buildProductsList(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildProductsList() {
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 2 / 3,
+          crossAxisSpacing: 1,
+          mainAxisSpacing: 1),
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
+      padding: EdgeInsets.zero,
+      itemCount: _searchTextController.text.isEmpty
+          ? allProducts.length
+          : searchedForProducts.length,
+      itemBuilder: (ctx, index) {
+        return ProductItem(
+          product: _searchTextController.text.isEmpty
+              ? allProducts[index]
+              : searchedForProducts[index],
+        );
+      },
+    );
+  }
+
+  void addSearchedForItemsToSearchedList(String searchedProduct) {
+    searchedForProducts = allProducts
+        .where((product) =>
+            product.name!.toLowerCase().startsWith(searchedProduct))
         .toList();
-    //setState(() {});
+    setState(() {});
   }
 }

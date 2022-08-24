@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:la_vie/data/models/seeds.dart';
+import 'package:la_vie/data/models/products.dart';
+//import 'package:la_vie/data/models/seeds.dart';
+
 import 'package:la_vie/data/repository/seeds_repository.dart';
 part 'seeds_stats.dart';
 
