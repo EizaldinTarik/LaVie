@@ -112,30 +112,27 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 child: Row(
                   children: [
                     Flexible(
-                      child: MaterialButton(
-                        onPressed: () {},
-                        child: TextField(
-                          controller: _searchTextController,
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(
-                              Icons.search,
-                            ),
-                            filled: true,
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            fillColor: const Color.fromARGB(255, 248, 248, 248),
-                            labelText: "Search",
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
+                      child: TextField(
+                        controller: _searchTextController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(
+                            Icons.search,
+                          ),
+                          filled: true,
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          fillColor: const Color.fromARGB(255, 248, 248, 248),
+                          labelText: "Search",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(
+                              width: 0,
+                              style: BorderStyle.none,
                             ),
                           ),
-                          onChanged: (searchedProduct) {
-                            addSearchedForItemsToSearchedList(searchedProduct);
-                          },
                         ),
+                        onChanged: (searchedProduct) {
+                          addSearchedForItemsToSearchedList(searchedProduct);
+                        },
                       ),
                     ),
                     const SizedBox(
@@ -199,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
               SizedBox(
                 width: double.maxFinite,
-                height: 500,
+                height: double.maxFinite,
                 child: TabBarView(
                   controller: _tabController,
                   children: [

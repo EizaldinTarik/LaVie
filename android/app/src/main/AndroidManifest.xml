@@ -3,7 +3,7 @@
    <application
         android:label="la_vie"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/splash"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
